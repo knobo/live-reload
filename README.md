@@ -1,5 +1,4 @@
 # live-reload
-### Knut Olav Bøhmer <bohmer@gmail.com>
 
 live-reload prototype for clack
 

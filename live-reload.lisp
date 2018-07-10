@@ -33,7 +33,7 @@
            (log:info "Notify update:" urls)))))
 
 (defmacro mlcar ((el list) &body body)
-  "Map lambda char. Syntactic sugar for map."
+  "Map lambda char. Syntactic sugar for mapcar."
   `(mapcar (lambda (,el) ,@body) ,list))
 
 (defun run-thread ()
@@ -41,7 +41,7 @@
    (lambda ()
      (let ((files (mlcar (file (alexandria:hash-table-keys *files*))
                     (list file inotify:in-close-write))))
-       (inotify:with-inotify (inot files) ;; (list #P"/home/knobo/foo.ps" inotify:in-close-write)
+       (inotify:with-inotify (inot files)
 
          (let ((thread (bt:make-thread
                         (lambda () (event-listener inot))

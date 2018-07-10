@@ -13,6 +13,8 @@ Install live-reload plugin for your browser, and it *should* work.
 
 ## License
 
+LLGPL
+
 ## Bugs
 
 I had to update websocket-driver/src/driver.lisp with this code. I
@@ -31,5 +33,3 @@ plugin in chrome.
                   (number version))) 13))))
 
 ```
-
-LLGPL

@@ -20,6 +20,10 @@
     (pushnew url (gethash file *files*) :test 'equal)
     (inotify:add-watch inot file mask)))
 
+(defun send-update-url (url)
+  (dolist (client (alexandria:hash-table-keys *live-reload-clients*))
+    (wsd:send client (format nil "{\"command\":\"reload\",\"path\":\"~a\",\"liveCSS\":\"true\"}" url))))
+
 (defun event-listener (inot)
   (declare (optimize (debug 3)))
   (loop for events = (inotify:read-events inot :time-out 0.2)
@@ -28,8 +32,7 @@
          (let* ((pathname (inotify:event-full-name event))
                 (urls (gethash pathname *files*)))
            (dolist (url urls)
-             (dolist (client (alexandria:hash-table-keys *live-reload-clients*))
-               (wsd:send client (format nil "{\"command\":\"reload\",\"path\":\"~a\",\"liveCSS\":\"true\"}" url))))
+             (send-update-url url))
            (log:info "Notify update:" urls)))))
 
 (defmacro mlcar ((el list) &body body)

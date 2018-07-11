@@ -7,4 +7,5 @@
    #:add
    #:run-thread
    #:stop
-   #:*live-reload-clients*))
+   #:*live-reload-clients*
+   #:send-update-url))

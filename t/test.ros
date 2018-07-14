@@ -1,0 +1,28 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp (ql:quickload '(live-reload) :silent t)
+  )
+
+(defpackage :ros.script.test.3740546449
+  (:use :cl))
+(in-package :ros.script.test.3740546449)
+
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (clack:clackup
+   (lack:builder
+    :live-reload
+    (lambda (env)
+      (declare (ignore env))
+      `(200 (:content-type "text/html")
+            ,(merge-pathnames #p"t/test.html" (asdf:system-source-directory  :live-reload)))))  ;;
+       :use-thread nil
+
+))
+
+;;; vim: set ft=lisp lisp:

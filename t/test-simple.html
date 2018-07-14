@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <link href="/test.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Test</h1>
+    <p>test 5</p>
+
+
+    <script>
+     (function () {
+       var port = location.port || "80";
+       var host = (location.host || 'localhost');
+       document.write('<script src="http://' + host + '/livereload.js?snipver=1&port=' + location.port  + '">' + '</' + 'script>');
+    }) ();
+    </script>
+  </body>
+</html>

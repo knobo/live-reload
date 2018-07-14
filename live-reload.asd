@@ -11,7 +11,8 @@
                "inotify"
                "websocket-driver"
                "clack"
-               "ningle")
+               "ningle"
+               "log4cl")
   :components ((:file "package")
                (:file "live-reload")
                (:file "live-reload-ws")

@@ -4,7 +4,6 @@
 
 (defvar *file-adder-mailbox* (make-mailbox :name "Add files"))
 (defvar *files* (make-hash-table :test 'equal))
-
 (defvar *live-reload-clients* (make-hash-table :test 'eql))
 
 (defun stop ()

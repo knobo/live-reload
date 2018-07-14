@@ -11,8 +11,9 @@ exec ros -Q -- $0 "$@"
 (defpackage :ros.script.test.3740546449
   (:use :cl))
 (in-package :ros.script.test.3740546449)
+
 (defparameter *test-file*
-  (merge-pathnames #p"t/test.html"
+  (merge-pathnames #p"t/test-simple.html"
                    (asdf:system-source-directory  :live-reload)))
 
 (defparameter  *static-directory*
@@ -24,10 +25,19 @@ exec ros -Q -- $0 "$@"
   (clack:clackup
    (lack:builder
     :accesslog
-    :live-reload
+    (lambda (app)
+      (live-reload:run-thread)
+      (lambda (env)
+        (if (equal (getf env :path-info) "/livereload")
+            (live-reload-ws:start-live-reload-ws env)
+            (destructuring-bind (&whole w code headers result) (funcall app env)
+              (declare (ignore code headers))
+              (typecase result
+                (pathname (live-reload:add result (getf env :path-info))))
+              w))))
     (:static :path
              (lambda (path)
-               (if (ppcre:scan "^.*(html|png|css|js/|ico)$" path)
+               (if (ppcre:scan "^.*(html|png|css|js|ico)$" path)
                    path
                    nil))
              :root *static-directory*)

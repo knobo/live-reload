@@ -7,13 +7,13 @@
 (in-package :lack.middleware.live.reload)
 
 (defparameter *lack-middleware-live-reload*
-  (lambda (app) ;; &key port ...
+  (lambda (app &key port address)
+    ;; TODO: use port and address
+    (live-reload-ws:ensure-running)
     (lambda (env)
-      (live-reload-ws:ensure-running)
       (destructuring-bind (&whole w code headers result) (funcall app env)
         (declare (ignore code headers))
-         (typecase result
-           (pathname (live-reload:add result (getf env :path-info))
-                     w)
-           (t w)))))
+        (typecase result
+          (pathname (live-reload:add result (getf env :path-info))))
+        w)))
   "Middleware for live-reload")

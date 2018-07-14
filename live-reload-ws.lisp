@@ -38,7 +38,8 @@
 
                 (wsd:on :message ws
                         (lambda (message)
-                          (log:info "Message" message)))
+                          ;;(log:info "Message" message)
+                          ))
 
                 (wsd:once  :message ws
                            (lambda (message)

@@ -33,7 +33,8 @@
                 (urls (gethash pathname *files*)))
            (dolist (url urls)
              (send-update-url url))
-           (log:info "Notify update:" urls)))))
+           ;; (log:info "Notify update:" urls)
+           ))))
 
 (defmacro mlcar ((el list) &body body)
   "Map lambda char. Syntactic sugar for mapcar."

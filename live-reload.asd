@@ -8,7 +8,10 @@
   :serial t
   :depends-on ("sb-concurrency"
                "alexandria"
-               "inotify")
+               "inotify"
+               "websocket-driver"
+               "clack"
+               "ningle")
   :components ((:file "package")
                (:file "live-reload")
                (:file "live-reload-ws")
